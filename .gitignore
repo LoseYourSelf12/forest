@@ -1,4 +1,4 @@
-forest_test/yolo/detectors/*.py
+# forest_test/yolo/detectors/*.py
 forest_test/yolo/weights/*.pt
 __pycache__/
 forest_test/results_csv/*.csv
