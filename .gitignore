@@ -1,0 +1,8 @@
+forest_test/yolo/detectors/*.py
+forest_test/yolo/weights/*.pt
+__pycache__/
+forest_test/results_csv/*.csv
+labels_9200.csv
+ocr/ocr_hash/*.csv
+old_*
+test_*
