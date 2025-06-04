@@ -1,2 +1,2 @@
 from .ocr import Reader
-from .andrey import *
+from .detectors import *
