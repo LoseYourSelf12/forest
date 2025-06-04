@@ -241,7 +241,7 @@ def report(test_ctgr, metrics, importance=None, dataset="ds_russ2024y", comment=
     }
     
     os.makedirs(f'{pref}', exist_ok=True)
-    json_file_path = f"{pref}/{dataset}-{pipe_str.replace("->", "_")}{suf}.json"
+    json_file_path = f"{pref}/{dataset}-{pipe_str.replace('->', '_')}{suf}.json"
     with open(json_file_path, 'w', encoding='utf-8') as json_file:
         json.dump(report_dict, json_file, ensure_ascii=False, indent=4)
         
