@@ -1,5 +1,6 @@
 from typing import Dict, Any
 import numpy as np
+from core import register_detector
 from .yolodtc import YOLODetector
 
 
@@ -33,6 +34,7 @@ class Kat_02_05(YOLODetector):
         )
         
 
+@register_detector("yolo_kat_05_03")
 class Kat_05_03(YOLODetector):
     def __init__(self):
         super().__init__(
@@ -63,6 +65,7 @@ class Kat_28_07(YOLODetector):
         )
        
 
+@register_detector("yolo_kat_28_08")
 class Kat_28_08(YOLODetector):
     def __init__(self):
         super().__init__(
