@@ -1,3 +1,4 @@
+from core import register_detector
 from .ocrdetector import OcrDetector
 
 
@@ -37,6 +38,7 @@ class Kat_05_01 (OcrDetector):
 # пустая категория: 05.02 Иностранные слова
 # --------------------------------------------------------------------------------
 
+@register_detector("ocr_kat_05_03")
 class Kat_05_03 (OcrDetector):
     def __init__(self):
         super().__init__(
@@ -200,6 +202,7 @@ class Kat_28_14 (OcrDetector):
             filename="ocr.txt"
         )
         
+@register_detector("ocr_kat_28_08")
 class Kat_28_08 (OcrDetector):
     def __init__(self):
         super().__init__(
