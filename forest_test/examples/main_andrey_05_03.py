@@ -1,28 +1,25 @@
-from core import Vectorizer, RandomForestMixer, register_detector, Dataset
-from yolo.olga import Kat_05_03 as Yolo05_03Base
-from ocr.andrey import Kat_05_03 as Ocr05_03Base
-
-@register_detector("yolo_05_03")
-class Yolo05_03(Yolo05_03Base):
-    pass
-
-@register_detector("ocr_05_03")
-class Ocr05_03(Ocr05_03Base):
-    pass
+from core import Vectorizer, RandomForestMixer, Dataset
+from yolo import Kat_05_03
+from ocr import Kat_05_03 as Ocr05
+from utils.pipeline_utils import prepare_local
+import pandas as pd
 
 CONFIG = {
-    "detectors": ["yolo_05_03", "ocr_05_03"],
+    "detectors": ["yolo_kat_05_03", "ocr_kat_05_03"],
     "dataset_csv": "path/to/labels_05_03.csv",
-    "mixer_params": {"n_estimators": 100, "random_state": 42}
+    "mixer_weights": "mixer_05_03.joblib",
+    "output_csv": "results_csv/pred_05_03.csv",
 }
 
 if __name__ == "__main__":
     vectorizer = Vectorizer(CONFIG["detectors"])
-    mixer = RandomForestMixer(**CONFIG["mixer_params"])
+    mixer = RandomForestMixer()
+    mixer.load(CONFIG["mixer_weights"])
     ds = Dataset(CONFIG["dataset_csv"])
-    for img_path, label in ds:
-        # Обычно здесь подготавливают 'local' с картинкой и текстом
-        local = {"img": None, "txt": ""}
-        x = vectorizer(local)
-        print("Sample vector", x)
-        break
+    records = []
+    for img_path, labels, _, _ in ds:
+        local = prepare_local(img_path)
+        vec = vectorizer(local).reshape(1, -1)
+        pred = mixer.predict(vec)[0]
+        records.append({"file_name": img_path, "prediction": pred})
+    pd.DataFrame(records).to_csv(CONFIG["output_csv"], index=False)
